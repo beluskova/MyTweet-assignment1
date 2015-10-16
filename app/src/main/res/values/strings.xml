@@ -1,8 +1,9 @@
 <resources>
-    <string name="app_name">Twitter-assignment1</string>
+    <string name="app_name">mytweet</string>
 
-    <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="button_tweet">Tweet</string>
+    <string name="hint_status">What\'s in your mind?</string>
     <string name="action_select">Select Contact</string>
     <string name="action_email">Email Tweet via</string>
 </resources>

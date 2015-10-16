@@ -1,4 +1,4 @@
-package annab.twitter_assignment1;
+package annab.mytweetActivity;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

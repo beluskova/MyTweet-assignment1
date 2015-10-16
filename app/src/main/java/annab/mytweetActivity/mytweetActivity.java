@@ -1,11 +1,11 @@
-package annab.twitter_assignment1;
+package annab.mytweetActivity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class TwitterActivity extends AppCompatActivity {
+public class mytweetActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
