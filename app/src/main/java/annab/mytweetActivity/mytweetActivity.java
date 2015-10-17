@@ -1,9 +1,7 @@
 package annab.mytweetActivity;
 
 import android.app.Activity;
-import android.content.DialogInterface;
 import android.graphics.Color;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -12,15 +10,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
+
 
 public class mytweetActivity extends Activity implements OnClickListener {
 
@@ -101,8 +95,11 @@ public class mytweetActivity extends Activity implements OnClickListener {
 
     @Override
     public void onClick(View v) {
-        String status = editStatus.getText().toString();
-        Toast toast = Toast.makeText(this, "Message Sent", Toast.LENGTH_SHORT);
+        long date = System.currentTimeMillis();
+        SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, yyyy h:mm:ss a");
+        String dateString = sdf.format(date);
+        sent_date.setText(dateString);
+        Toast toast = Toast.makeText(this, "Message Sent at " + dateString, Toast.LENGTH_SHORT);
         toast.show();
     }
 }
