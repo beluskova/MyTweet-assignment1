@@ -4,13 +4,45 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.TextView;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 public class mytweetActivity extends AppCompatActivity {
+
+    private Button buttonTweet;
+    private TextView textCount;
+    private EditText editStatus;
+    private TextView sent_date;
+    private Button selectContact;
+    private Button sendEmail;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_twitter);
+
+        buttonTweet = (Button) findViewById(R.id.buttonTweet);
+        textCount = (TextView)findViewById(R.id.textCount);
+        editStatus = (EditText) findViewById(R.id.editStatus);
+        sent_date = (TextView) findViewById(R.id.sent_date);
+        selectContact = (Button) findViewById(R.id.selectContact);
+        sendEmail = (Button) findViewById(R.id.sendEmail);
+
+        long date = System.currentTimeMillis();
+
+        SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, yyyy h:mm:ss a");
+        String dateString = sdf.format(date);
+        sent_date.setText(dateString);
+
     }
 
     @Override
@@ -34,4 +66,5 @@ public class mytweetActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
 }

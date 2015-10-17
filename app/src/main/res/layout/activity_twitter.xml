@@ -17,26 +17,23 @@
         android:layout_marginRight="17dp"
         android:text="@string/button_tweet"
         android:textAllCaps="false"/>
+
     <TextView
         android:id="@+id/textCount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@id/editStatus"
-        android:layout_alignTop="@id/buttonTweet"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="15dp"
         android:text="140"
-        android:textAppearance="?android:attr/textAppearanceSmall"/>
+        android:textAppearance="?android:attr/textAppearanceLarge"/>
 
     <TextView
-        android:id="@+id/editStatus"
+        android:id="@+id/sent_date"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:ems="10"
-        android:hint="@string/hint_status"
-        android:inputType="textMultiLine"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/buttonTweet" >
-        <requestFocus/>
-    </TextView>
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/selectContact"
+        android:layout_alignParentStart="true"
+        android:gravity="center"/>
 
     <Button
         android:id="@+id/selectContact"
@@ -48,6 +45,22 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 
+    <EditText
+        android:id="@+id/editStatus"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:ems="10"
+        android:hint="@string/hint_status"
+        android:inputType="textMultiLine"
+        android:gravity="top"
+        android:layout_alignRight="@id/selectContact"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/buttonTweet"
+        android:layout_above="@+id/sent_date"
+        android:layout_alignEnd="@+id/buttonTweet">
+        <requestFocus/>
+    </EditText>
+
     <Button
         android:id="@+id/sendEmail"
         android:layout_width="match_parent"
@@ -55,8 +68,8 @@
         android:text="@string/action_email"
         android:textAllCaps="false"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginBottom="63dp" />
+        android:layout_centerHorizontal="true" />
+
+
 
 </RelativeLayout>
