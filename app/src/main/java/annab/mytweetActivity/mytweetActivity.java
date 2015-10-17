@@ -1,21 +1,28 @@
 package annab.mytweetActivity;
 
+import android.app.Activity;
+import android.content.DialogInterface;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-public class mytweetActivity extends AppCompatActivity {
+public class mytweetActivity extends Activity implements OnClickListener {
 
     private Button buttonTweet;
     private TextView textCount;
@@ -31,7 +38,7 @@ public class mytweetActivity extends AppCompatActivity {
         setContentView(R.layout.activity_twitter);
 
         buttonTweet = (Button) findViewById(R.id.buttonTweet);
-        textCount = (TextView)findViewById(R.id.textCount);
+        textCount = (TextView) findViewById(R.id.textCount);
         editStatus = (EditText) findViewById(R.id.editStatus);
         sent_date = (TextView) findViewById(R.id.sent_date);
         selectContact = (Button) findViewById(R.id.selectContact);
@@ -43,6 +50,31 @@ public class mytweetActivity extends AppCompatActivity {
         String dateString = sdf.format(date);
         sent_date.setText(dateString);
 
+        buttonTweet.setOnClickListener(this);
+
+        editStatus.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void afterTextChanged(Editable s) {
+                int count = 140 - editStatus.length();
+                textCount.setText(Integer.toString(count));
+                textCount.setTextColor(Color.GREEN);
+                if (count < 10 & count > 0)
+                    textCount.setTextColor(Color.YELLOW);
+                else if (count == 0)
+                    textCount.setTextColor(Color.RED);
+                else
+                    textCount.setTextColor(Color.GREEN);
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+        });
     }
 
     @Override
@@ -67,4 +99,10 @@ public class mytweetActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onClick(View v) {
+        String status = editStatus.getText().toString();
+        Toast toast = Toast.makeText(this, "Message Sent", Toast.LENGTH_SHORT);
+        toast.show();
+    }
 }
