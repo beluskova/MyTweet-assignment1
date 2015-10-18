@@ -1,7 +1,21 @@
+
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools" tools:context=".mytweetActivity">
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".timelineActivity">
 
-    <item android:id="@+id/action_settings" android:title="@string/action_settings"
+    <item android:id="@+id/new_tweet"
+        android:icon="@android:drawable/ic_menu_add"
+        android:title="@string/new_tweet"
+        android:showAsAction="ifRoom|withText"/>
+
+    <item
+        android:id="@+id/action_settings"
+        android:title="@string/action_settings"
+        android:orderInCategory="100" />
+
+    <item
+        android:id="@+id/action_clear"
+        android:title="@string/action_clear"
         android:orderInCategory="100" />
 </menu>

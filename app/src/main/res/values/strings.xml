@@ -2,9 +2,13 @@
     <string name="app_name">mytweet</string>
 
     <string name="action_settings">Settings</string>
+    <string name="action_clear">Clear</string>
+    <string name="new_tweet">New Tweet</string>
+
     <string name="button_tweet">Tweet</string>
     <string name="sent_date">""</string>
     <string name="hint_status">What\'s in your mind?</string>
     <string name="action_select">Select Contact</string>
     <string name="action_email">Email Tweet via</string>
+    <string name="timeline_activity">Timeline</string>
 </resources>

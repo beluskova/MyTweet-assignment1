@@ -13,7 +13,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import java.text.SimpleDateFormat;
+import static anna.android.helpers.IntentHelper.navigateUp;
 
 import annab.mytweetActivity.R;
 
@@ -32,6 +34,7 @@ public class mytweetActivity extends Activity implements OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_twitter);
+        getActionBar().setDisplayHomeAsUpEnabled(true);
 
         buttonTweet = (Button) findViewById(R.id.buttonTweet);
         textCount = (TextView) findViewById(R.id.textCount);
@@ -85,11 +88,10 @@ public class mytweetActivity extends Activity implements OnClickListener {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        switch (item.getItemId())
+        {
+            case android.R.id.home:  navigateUp(this);
+                return true;
         }
 
         return super.onOptionsItemSelected(item);
