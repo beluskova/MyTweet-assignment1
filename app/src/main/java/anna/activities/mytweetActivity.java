@@ -1,4 +1,4 @@
-package annab.mytweetActivity;
+package anna.activities;
 
 import android.app.Activity;
 import android.graphics.Color;
@@ -14,6 +14,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 import java.text.SimpleDateFormat;
+
+import annab.mytweetActivity.R;
 
 
 public class mytweetActivity extends Activity implements OnClickListener {
