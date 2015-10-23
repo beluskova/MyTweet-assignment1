@@ -17,7 +17,7 @@
         android:layout_marginRight="17dp"
         android:text="@string/button_tweet"
         android:textAllCaps="false"
-        android:onClick="onClick"/>
+        android:onClick="sendTweetClicked"/>
 
     <TextView
         android:id="@+id/textCount"

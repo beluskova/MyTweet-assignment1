@@ -17,6 +17,8 @@ import android.widget.Toast;
 import java.text.SimpleDateFormat;
 import static anna.android.helpers.IntentHelper.navigateUp;
 
+import anna.models.Message;
+import anna.models.Timeline;
 import annab.mytweetActivity.R;
 
 
@@ -28,6 +30,8 @@ public class mytweetActivity extends Activity implements OnClickListener {
     private TextView sent_date;
     private Button selectContact;
     private Button sendEmail;
+    private Message message;
+    private Timeline timeline;
 
 
     @Override
@@ -36,6 +40,7 @@ public class mytweetActivity extends Activity implements OnClickListener {
         setContentView(R.layout.activity_twitter);
         getActionBar().setDisplayHomeAsUpEnabled(true);
 
+        message = new Message();
         buttonTweet = (Button) findViewById(R.id.buttonTweet);
         textCount = (TextView) findViewById(R.id.textCount);
         editStatus = (EditText) findViewById(R.id.editStatus);
@@ -53,7 +58,8 @@ public class mytweetActivity extends Activity implements OnClickListener {
 
         editStatus.addTextChangedListener(new TextWatcher() {
             @Override
-            public void afterTextChanged(Editable s) {
+            public void afterTextChanged(Editable s)
+            {
                 int count = 140 - editStatus.length();
                 textCount.setText(Integer.toString(count));
                 textCount.setTextColor(Color.GREEN);
@@ -97,13 +103,20 @@ public class mytweetActivity extends Activity implements OnClickListener {
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public void onClick(View v) {
+   // @Override
+    public void sendTweetClicked(Button buttonTweet, Editable s) {
+        message.setMessage(s.toString());
         long date = System.currentTimeMillis();
         SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, yyyy h:mm:ss a");
         String dateString = sdf.format(date);
         sent_date.setText(dateString);
+        timeline.addMessage(message);
         Toast toast = Toast.makeText(this, "Message Sent at " + dateString, Toast.LENGTH_SHORT);
         toast.show();
+    }
+
+    @Override
+    public void onClick(View v) {
+
     }
 }
