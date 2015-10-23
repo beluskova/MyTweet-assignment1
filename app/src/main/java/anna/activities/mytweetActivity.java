@@ -22,7 +22,7 @@ import anna.models.Timeline;
 import annab.mytweetActivity.R;
 
 
-public class mytweetActivity extends Activity implements OnClickListener {
+public class mytweetActivity extends Activity implements OnClickListener, TextWatcher {
 
     private Button buttonTweet;
     private TextView textCount;
@@ -58,8 +58,7 @@ public class mytweetActivity extends Activity implements OnClickListener {
 
         editStatus.addTextChangedListener(new TextWatcher() {
             @Override
-            public void afterTextChanged(Editable s)
-            {
+            public void afterTextChanged(Editable s) {
                 int count = 140 - editStatus.length();
                 textCount.setText(Integer.toString(count));
                 textCount.setTextColor(Color.GREEN);
@@ -104,19 +103,28 @@ public class mytweetActivity extends Activity implements OnClickListener {
     }
 
    // @Override
-    public void sendTweetClicked(Button buttonTweet, Editable s) {
-        message.setMessage(s.toString());
+    public void onClick (View v) {
+        //message.setMessage(s.toString());
         long date = System.currentTimeMillis();
         SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, yyyy h:mm:ss a");
         String dateString = sdf.format(date);
         sent_date.setText(dateString);
-        timeline.addMessage(message);
         Toast toast = Toast.makeText(this, "Message Sent at " + dateString, Toast.LENGTH_SHORT);
         toast.show();
     }
 
     @Override
-    public void onClick(View v) {
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+    }
+
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+    }
+
+    @Override
+    public void afterTextChanged(Editable s) {
 
     }
 }
