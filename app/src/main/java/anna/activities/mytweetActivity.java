@@ -141,7 +141,8 @@ public class mytweetActivity extends Activity implements OnClickListener, TextWa
             case R.id.buttonTweet:
                 Toast toast = Toast.makeText(this, "Message Sent ", Toast.LENGTH_SHORT);
                 toast.show();
-                //message = new Message();
+                //to return to Timeline when tweet is sent: no more editing of tweet is prevented
+                startActivity(new Intent(this, TimelineListActivity.class));
                 break;
         }
     }
