@@ -28,7 +28,7 @@ package anna.activities;
         import java.util.List;
         import java.util.UUID;
 
-public class TimelineListActivity extends Activity implements View.OnClickListener
+public class TimelineListActivity extends Activity implements AdapterView.OnItemClickListener
 {
     private ListView listView;
     private Timeline timeline;
@@ -48,6 +48,8 @@ public class TimelineListActivity extends Activity implements View.OnClickListen
 
         adapter = new MessageAdapter(this, timeline.messages);
         listView.setAdapter(adapter);
+        //to edit an individual tweets
+        listView.setOnItemClickListener(this);
     }
     //saving new messages
     @Override
@@ -86,11 +88,16 @@ public class TimelineListActivity extends Activity implements View.OnClickListen
         }
         return true;
     }
-
+    //to edit an indivitual tweet
     @Override
-    public void onClick(View v) {
-
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+    {
+        Message message = adapter.getItem(position);
+        Intent intent = new Intent(this, mytweetActivity.class);
+        intent.putExtra("MESSAGE_ID", message.id);
+        startActivity(intent);
     }
+
 }
 
 class MessageAdapter extends ArrayAdapter<Message>
