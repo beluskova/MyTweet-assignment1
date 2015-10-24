@@ -5,15 +5,41 @@ import java.util.UUID;
 
 import android.util.Log;
 
+import static anna.android.helpers.LogHelpers.info;
+
 public class Timeline
 
 {
     public  ArrayList<Message> messages;
+    private TimelineSerializer   serializer;
 
-    public Timeline()
+    // timeline is refactored so it includes the serializer now to make sure the tweets are saved when we leave the app
+    public Timeline(TimelineSerializer serializer)
     {
-        messages = new ArrayList<Message>();
-        //this.generateTestData();
+        this.serializer = serializer;
+        try {
+            messages = serializer.loadMessages();
+        }
+        catch (Exception e)
+        {
+            info(this, "Error loading messages: " + e.getMessage());
+            messages = new ArrayList<Message>();
+        }
+    }
+    //tweets saved through the setializer
+    public boolean saveMessages()
+    {
+        try
+        {
+            serializer.saveMessages(messages);
+            info(this, "Messages saved to file");
+            return true;
+        }
+        catch (Exception e)
+        {
+            info(this, "Error saving messages: " + e.getMessage());
+            return false;
+        }
     }
 
     public void addMessage(Message message)
@@ -32,6 +58,7 @@ public class Timeline
                 return mes;
             }
         }
+        info(this, "failed to find message. returning first element array to avoid crash");
         return null;
     }
 

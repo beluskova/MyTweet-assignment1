@@ -146,4 +146,10 @@ public class mytweetActivity extends Activity implements OnClickListener, TextWa
                 break;
         }
     }
+    //to make sure the tweets are saved when we leave the app
+    public void onPause()
+    {
+        super.onPause();
+        timeline.saveMessages();
+    }
  }
