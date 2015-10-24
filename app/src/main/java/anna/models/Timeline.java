@@ -77,4 +77,10 @@ public class Timeline
     {
         messages = new ArrayList<Message>();
     }
+
+    //to delete a single tweet
+    public void deleteMessage(Message m)
+    {
+        messages.remove(m);
+    }
 }

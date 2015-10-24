@@ -11,6 +11,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -25,13 +26,18 @@ import anna.app.MyTweetApp;
 import anna.models.Message;
 import anna.models.Timeline;
 import annab.mytweetActivity.R;
+import android.view.ActionMode;
+import android.widget.AbsListView.MultiChoiceModeListener;
 
 
-public class TimelineListFragment extends ListFragment implements AdapterView.OnItemClickListener
+public class TimelineListFragment extends ListFragment
+        implements AdapterView.OnItemClickListener,
+        AbsListView.MultiChoiceModeListener
 {
     private ArrayList<Message> messages;
     private Timeline timeline;
     private MessageAdapter adapter;
+    private ListView listView;
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -52,6 +58,9 @@ public class TimelineListFragment extends ListFragment implements AdapterView.On
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState)
     {
         View v = super.onCreateView(inflater, parent, savedInstanceState);
+        listView = (ListView) v.findViewById(android.R.id.list);
+        listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
+        listView.setMultiChoiceModeListener(this);
         return v;
     }
 
@@ -61,7 +70,7 @@ public class TimelineListFragment extends ListFragment implements AdapterView.On
         Message mes = ((MessageAdapter) getListAdapter()).getItem(position);
         Intent i = new Intent(getActivity(), mytweetActivity.class);
         i.putExtra(MessageFragment.EXTRA_MESSAGE_ID, mes.id);
-        startActivityForResult(i,0);
+        startActivityForResult(i, 0);
     }
     //saving new messages
     @Override
@@ -91,7 +100,7 @@ public class TimelineListFragment extends ListFragment implements AdapterView.On
                 break;
             case R.id.new_tweet:
                 Message message = new Message();
-                timeline.addMessage(message);
+        timeline.addMessage(message);
                 Intent i = new Intent(getActivity(), mytweetActivity.class);
                 i.putExtra(MessageFragment.EXTRA_MESSAGE_ID, message.id);
                 startActivityForResult(i, 0);
@@ -105,13 +114,62 @@ public class TimelineListFragment extends ListFragment implements AdapterView.On
         }
         return true;
     }
-    //to edit an indivitual tweet
+    //to edit an individual tweet
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id)
     {
         Message message = adapter.getItem(position);
         IntentHelper.startActivityWithData(getActivity(), mytweetActivity.class, "MESSAGE_ID", message.id);
     }
+
+    /* ************ MultiChoiceModeListener methods (begin) *********** */
+    @Override
+    public void onItemCheckedStateChanged(ActionMode mode, int position, long id, boolean checked) {
+
+    }
+
+    @Override
+    public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+        MenuInflater inflater = mode.getMenuInflater();
+        inflater.inflate(R.menu.message_list_context, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+        return false;
+    }
+
+    @Override
+    public boolean onActionItemClicked(ActionMode mode, MenuItem item)
+    {
+        switch (item.getItemId())
+        {
+            case R.id.menu_item_delete_message:
+                deleteMessage(mode);
+                return true;
+            default:
+                return false;
+        }
+    }
+
+    private void deleteMessage(ActionMode actionMode)
+    {
+        for (int i = adapter.getCount() - 1; i >= 0; i--)
+        {
+            if (listView.isItemChecked(i))
+            {
+                timeline.deleteMessage(adapter.getItem(i));
+            }
+        }
+        actionMode.finish();
+        adapter.notifyDataSetChanged();
+    }
+    @Override
+    public void onDestroyActionMode(ActionMode mode) {
+
+    }
+    /* ************ MultiChoiceModeListener methods (end) *********** */
 }
 
 class MessageAdapter extends ArrayAdapter<Message>
