@@ -7,7 +7,6 @@ import java.util.UUID;
 public class Message
 {
     public UUID id;
-
     public String  editStatus;
     public Date    date;
 

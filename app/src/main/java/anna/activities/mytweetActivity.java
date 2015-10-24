@@ -1,22 +1,28 @@
 package anna.activities;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
+import java.util.UUID;
+
 import static anna.android.helpers.IntentHelper.navigateUp;
 
+import anna.app.MyTweetApp;
 import anna.models.Message;
 import anna.models.Timeline;
 import annab.mytweetActivity.R;
@@ -35,11 +41,14 @@ public class mytweetActivity extends Activity implements OnClickListener, TextWa
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_twitter);
         getActionBar().setDisplayHomeAsUpEnabled(true);
 
+        MyTweetApp app = (MyTweetApp) getApplication();
+        timeline = app.timeline;
         message = new Message();
         buttonTweet = (Button) findViewById(R.id.buttonTweet);
         textCount = (TextView) findViewById(R.id.textCount);
@@ -56,9 +65,25 @@ public class mytweetActivity extends Activity implements OnClickListener, TextWa
 
         buttonTweet.setOnClickListener(this);
 
-        editStatus.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void afterTextChanged(Editable s) {
+        editStatus.addTextChangedListener(this);
+
+        UUID mesId = (UUID) getIntent().getExtras().getSerializable("MESSAGE_ID");
+        message = timeline.getMessage(mesId);
+        if (message != null)
+        {
+            updateControls(message);
+        }
+
+    }
+
+    public void updateControls(Message message)
+    {
+        editStatus.setText(message.editStatus);
+        sent_date.setText(message.getDateString());
+    }
+
+    public void afterTextChanged (Editable s)
+        {
                 int count = 140 - editStatus.length();
                 textCount.setText(Integer.toString(count));
                 textCount.setTextColor(Color.GREEN);
@@ -68,6 +93,15 @@ public class mytweetActivity extends Activity implements OnClickListener, TextWa
                     textCount.setTextColor(Color.RED);
                 else
                     textCount.setTextColor(Color.GREEN);
+
+                String thisMessage = s.toString();
+                Log.i(this.getClass().getSimpleName(), "tweeted: " + thisMessage);
+                message.editStatus = thisMessage;
+                long date = System.currentTimeMillis();
+                SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, yyyy h:mm:ss a");
+                String dateString = sdf.format(date);
+                sent_date.setText(dateString);
+                //getActivity().setTitle(thisMessage);
             }
 
             @Override
@@ -78,8 +112,7 @@ public class mytweetActivity extends Activity implements OnClickListener, TextWa
             public void onTextChanged(CharSequence s, int start, int before, int count) {
             }
 
-        });
-    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -104,27 +137,13 @@ public class mytweetActivity extends Activity implements OnClickListener, TextWa
 
    // @Override
     public void onClick (View v) {
-        //message.setMessage(s.toString());
-        long date = System.currentTimeMillis();
-        SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, yyyy h:mm:ss a");
-        String dateString = sdf.format(date);
-        sent_date.setText(dateString);
-        Toast toast = Toast.makeText(this, "Message Sent at " + dateString, Toast.LENGTH_SHORT);
-        toast.show();
+             switch  (v.getId())
+        {
+            case R.id.buttonTweet:
+                Toast toast = Toast.makeText(this, "Message Sent ", Toast.LENGTH_SHORT);
+                toast.show();
+                //message = new Message();
+                break;
+        }
     }
-
-    @Override
-    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-    }
-
-    @Override
-    public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-    }
-
-    @Override
-    public void afterTextChanged(Editable s) {
-
-    }
-}
+ }

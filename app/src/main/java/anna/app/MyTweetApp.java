@@ -1,10 +1,8 @@
 package anna.app;
 
 import android.app.Application;
-import android.os.Bundle;
-
 import anna.models.Timeline;
-import annab.mytweetActivity.R;
+import static anna.android.helpers.LogHelpers.info;
 
 public class MyTweetApp extends Application {
     public Timeline timeline;
@@ -13,6 +11,8 @@ public class MyTweetApp extends Application {
     public void onCreate() {
         super.onCreate();
         timeline = new Timeline();
+
+        info(this, "MyTweet app launched");
     }
 
 }

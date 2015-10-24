@@ -10,6 +10,7 @@ package anna.activities;
         import android.app.Activity;
         import android.os.Bundle;
 
+        import anna.android.helpers.IntentHelper;
         import anna.app.MyTweetApp;
         import anna.models.Message;
         import anna.models.Timeline;
@@ -27,14 +28,11 @@ package anna.activities;
         import java.util.List;
         import java.util.UUID;
 
-public class TimelineListActivity extends Activity
+public class TimelineListActivity extends Activity implements View.OnClickListener
 {
     private ListView listView;
     private Timeline timeline;
     private MessageAdapter adapter;
-    private Message message;
-    private MyTweetApp app;
-    private ArrayList<Message> messages;
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -47,10 +45,16 @@ public class TimelineListActivity extends Activity
 
         MyTweetApp app = (MyTweetApp) getApplication();
         timeline = app.timeline;
-        //messages = timeline.messages;
 
         adapter = new MessageAdapter(this, timeline.messages);
         listView.setAdapter(adapter);
+    }
+    //saving new messages
+    @Override
+    public void onResume()
+    {
+        super.onResume();
+        adapter.notifyDataSetChanged();
     }
 
     @Override
@@ -71,13 +75,21 @@ public class TimelineListActivity extends Activity
             case R.id.action_settings : Toast toast = Toast.makeText(this, "Settings Selected", Toast.LENGTH_SHORT);
                 toast.show();
                 break;
-            case R.id.new_tweet : startActivity (new Intent(this, mytweetActivity.class));
-                break;
+            case R.id.new_tweet:
+                Message message = new Message();
+                timeline.addMessage(message);
+                IntentHelper.startActivityWithDataForResult(this, mytweetActivity.class, "MESSAGE_ID", message.id, 0);
+                return true;
             case R.id.action_clear :  Toast toast1 = Toast.makeText(this, "Clear Selected", Toast.LENGTH_SHORT);
                 toast1.show();
                 break;
         }
         return true;
+    }
+
+    @Override
+    public void onClick(View v) {
+
     }
 }
 
@@ -90,7 +102,6 @@ class MessageAdapter extends ArrayAdapter<Message>
     {
         super(context, R.layout.list_item_message, messages);
         this.context   = context;
-        this.messages = messages;
     }
 
     @Override
