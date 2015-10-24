@@ -13,7 +13,7 @@ public class Timeline
     public Timeline()
     {
         messages = new ArrayList<Message>();
-        this.generateTestData();
+        //this.generateTestData();
     }
 
     public void addMessage(Message message)
@@ -23,7 +23,7 @@ public class Timeline
 
     public Message getMessage(UUID id)
     {
-        Log.i(this.getClass().getSimpleName(), "UUID parameter id: "+ id);
+        Log.i(this.getClass().getSimpleName(), "UUID parameter id: " + id);
 
         for (Message mes : messages)
         {
@@ -44,5 +44,10 @@ public class Timeline
             messages.add(m);
         }
     }
-}
 
+    //to delete all tweets
+    public void deleteAllMessages()
+    {
+        messages = new ArrayList<Message>();
+    }
+}

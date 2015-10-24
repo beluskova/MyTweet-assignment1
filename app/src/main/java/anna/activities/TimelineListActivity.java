@@ -82,8 +82,10 @@ public class TimelineListActivity extends Activity implements AdapterView.OnItem
                 timeline.addMessage(message);
                 IntentHelper.startActivityWithDataForResult(this, mytweetActivity.class, "MESSAGE_ID", message.id, 0);
                 return true;
-            case R.id.action_clear :  Toast toast1 = Toast.makeText(this, "Clear Selected", Toast.LENGTH_SHORT);
-                toast1.show();
+            case R.id.action_clear :
+                Intent intent1 = new Intent(this, TimelineListActivity.class);
+                startActivity(intent1);
+                timeline.deleteAllMessages();
                 break;
         }
         return true;
@@ -97,7 +99,6 @@ public class TimelineListActivity extends Activity implements AdapterView.OnItem
         intent.putExtra("MESSAGE_ID", message.id);
         startActivity(intent);
     }
-
 }
 
 class MessageAdapter extends ArrayAdapter<Message>
