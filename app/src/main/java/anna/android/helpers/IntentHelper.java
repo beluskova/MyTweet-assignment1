@@ -49,7 +49,7 @@ public class IntentHelper
     public static void sendEmail(Context context, String email, String subject, String body)
     {
         Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts("mailto", email, null));
-        emailIntent.putExtra(Intent.EXTRA_EMAIL, email);
+       //emailIntent.putExtra(Intent.EXTRA_EMAIL, email);
         emailIntent.putExtra(Intent.EXTRA_SUBJECT, subject);
         emailIntent.putExtra(Intent.EXTRA_TEXT, body);
         context.startActivity(Intent.createChooser(emailIntent, "Sending Email"));

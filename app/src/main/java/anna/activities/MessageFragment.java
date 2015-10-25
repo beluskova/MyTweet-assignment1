@@ -156,12 +156,12 @@ public class MessageFragment extends Fragment implements View.OnClickListener, T
                 startActivityForResult(i, REQUEST_CONTACT);
                 if (message.selectContact != null)
                 {
-                    selectContact.setText("Contact: "+ message.selectContact);
+                    selectContact.setText( message.selectContact);
                 }
                 break;
 
             case R.id.sendEmail:
-                IntentHelper.sendEmail(getActivity(), "", getString(R.string.tweet_report_subject), message.getTweetEmailed(getActivity()));
+                IntentHelper.sendEmail(getActivity(), String.valueOf(selectContact.getText()), getString(R.string.tweet_report_subject), message.getTweetEmailed(getActivity()));
                 break;
         }
     }
