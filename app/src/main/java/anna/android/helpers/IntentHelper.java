@@ -1,10 +1,12 @@
 package anna.android.helpers;
 
-        import java.io.Serializable;
+import java.io.Serializable;
 
-        import android.app.Activity;
-        import android.content.Intent;
-        import android.support.v4.app.NavUtils;
+import android.app.Activity;
+import android.content.Intent;
+import android.support.v4.app.NavUtils;
+import android.provider.ContactsContract;
+
 
 public class IntentHelper
 {
@@ -32,5 +34,11 @@ public class IntentHelper
     {
         Intent upIntent = NavUtils.getParentActivityIntent(parent);
         NavUtils.navigateUpTo(parent, upIntent);
+    }
+
+    public static void selectContact(Activity parent, int id)
+    {
+        Intent selectContactIntent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
+        parent.startActivityForResult(selectContactIntent, id);
     }
 }
