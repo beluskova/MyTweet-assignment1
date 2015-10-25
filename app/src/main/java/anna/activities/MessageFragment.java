@@ -1,9 +1,11 @@
 package anna.activities;
 
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -20,17 +22,21 @@ import android.widget.Toast;
 import java.text.SimpleDateFormat;
 import java.util.UUID;
 
+import anna.android.helpers.ContactHelper;
 import anna.android.helpers.IntentHelper;
 import anna.app.MyTweetApp;
 import anna.models.Message;
 import anna.models.Timeline;
 import annab.mytweetActivity.R;
 
+
 import static anna.android.helpers.IntentHelper.navigateUp;
 
 public class MessageFragment extends Fragment implements View.OnClickListener, TextWatcher {
 
     public static   final String  EXTRA_MESSAGE_ID = "mytweet.MESSAGE_ID";
+    private static final int REQUEST_CONTACT = 1;
+
     private Button buttonTweet;
     private TextView textCount;
     private EditText editStatus;
@@ -54,8 +60,7 @@ public class MessageFragment extends Fragment implements View.OnClickListener, T
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState)
-    {
+    public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
         super.onCreateView(inflater, parent, savedInstanceState);
         View v = inflater.inflate(R.layout.fragment_message, parent, false);
 
@@ -81,6 +86,8 @@ public class MessageFragment extends Fragment implements View.OnClickListener, T
         sent_date.setText(dateString);
         buttonTweet.setOnClickListener(this);
         editStatus.addTextChangedListener(this);
+        selectContact.setOnClickListener(this);
+
     }
 
     public void updateControls(Message message)
@@ -139,8 +146,16 @@ public class MessageFragment extends Fragment implements View.OnClickListener, T
                 Toast toast = Toast.makeText(getActivity(), "Message Sent ", Toast.LENGTH_SHORT);
                 toast.show();
                 //to return to Timeline when tweet is sent: no more editing of tweet is prevented
-               // startActivity(new Intent(getActivity(), TimelineListActivity.class));
                 IntentHelper.startActivity(getActivity(), TimelineListActivity.class);
+                break;
+
+            case R.id.selectContact:
+                Intent i = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
+                startActivityForResult(i, REQUEST_CONTACT);
+                if (message.selectContact != null)
+                {
+                    selectContact.setText("Contact: "+ message.selectContact);
+                }
                 break;
         }
     }
@@ -149,5 +164,22 @@ public class MessageFragment extends Fragment implements View.OnClickListener, T
     {
         super.onPause();
         timeline.saveMessages();
+    }
+
+    //a helping method to display selected person's email when Select Contact button is clicked
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        if (resultCode != Activity.RESULT_OK)
+        {
+            return;
+        }
+        else
+        if (requestCode == REQUEST_CONTACT)
+        {
+            String name = ContactHelper.getEmail(getActivity(), data);
+            message.selectContact = name;
+            selectContact.setText(name);
+        }
     }
 }

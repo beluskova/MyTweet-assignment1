@@ -36,6 +36,7 @@ public class IntentHelper
         NavUtils.navigateUpTo(parent, upIntent);
     }
 
+    //a new method to choose contact from the contact list
     public static void selectContact(Activity parent, int id)
     {
         Intent selectContactIntent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);

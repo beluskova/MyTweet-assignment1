@@ -1,3 +1,4 @@
+//a new helping class to select contact's name or their email (Select Contact button)
 package anna.android.helpers;
 
 import android.content.Context;
@@ -28,6 +29,7 @@ public class ContactHelper
         return contact;
     }
 
+    //to display email address on the Select Contact button
     public static String getEmail(Context context, Intent data)
     {
         String email = "no email";

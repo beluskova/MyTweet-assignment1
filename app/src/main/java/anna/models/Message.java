@@ -12,12 +12,12 @@ public class Message
     public UUID id;
     public String  editStatus;
     public Date    date;
+    public String  selectContact;
 
     private static final String JSON_ID             = "id"            ;
     private static final String JSON_EDITSTATUS    = "editStatus"   ;
     private static final String JSON_DATE           = "date"          ;
-
-
+    private static final String JSON_CONTACT        = "selectContact";
 
     public Message()
     {
@@ -25,13 +25,15 @@ public class Message
         this.date = new Date();
 
         this.editStatus = editStatus;
+        selectContact = "no contact";
     }
 
     public Message(JSONObject json) throws JSONException
     {
-        id            = UUID.fromString(json.getString(JSON_ID));
+        id = UUID.fromString(json.getString(JSON_ID));
         editStatus   = json.getString(JSON_EDITSTATUS);
         date          = new Date(json.getLong(JSON_DATE));
+        selectContact        = json.getString(JSON_CONTACT);
     }
 
     public JSONObject toJSON() throws JSONException
@@ -40,6 +42,7 @@ public class Message
         json.put(JSON_ID            , id.toString());
         json.put(JSON_EDITSTATUS    , editStatus);
         json.put(JSON_DATE          , date.getTime());
+        json.put(JSON_CONTACT       , selectContact);
         return json;
     }
 
