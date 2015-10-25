@@ -53,7 +53,7 @@ public class MessageFragment extends Fragment implements View.OnClickListener, T
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
 
-        UUID mesId = (UUID)getActivity().getIntent().getSerializableExtra(EXTRA_MESSAGE_ID);
+        UUID mesId = (UUID)getArguments().getSerializable(EXTRA_MESSAGE_ID);
 
         MyTweetApp app = (MyTweetApp) getActivity().getApplication();
         timeline = app.timeline;

@@ -19,7 +19,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="anna.activities.mytweetActivity"
+            android:name="anna.activities.MytweetPagerActivity"
             android:label="@string/app_name" >
             <meta-data android:name="android.support.PARENT_ACTIVITY"
                 android:value="anna.activities.TimelineListActivity"/>

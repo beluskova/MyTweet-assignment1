@@ -1,26 +1,17 @@
 package anna.activities;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.List;
-
-import anna.models.Message;
 import annab.mytweetActivity.R;
 
 
-public class timelineActivity extends Activity {
+public class TimelineActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,7 +39,7 @@ public class timelineActivity extends Activity {
                 toast.show();
                 break;
             case R.id.new_tweet:
-                startActivity(new Intent(this, mytweetActivity.class));
+                startActivity(new Intent(this, MytweetActivity.class));
                 break;
             case R.id.action_clear:
                 Toast toast1 = Toast.makeText(this, "Clear Selected", Toast.LENGTH_SHORT);

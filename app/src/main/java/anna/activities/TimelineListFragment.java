@@ -1,6 +1,5 @@
 package anna.activities;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -20,6 +19,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import anna.android.helpers.IntentHelper;
 import anna.app.MyTweetApp;
@@ -27,7 +27,6 @@ import anna.models.Message;
 import anna.models.Timeline;
 import annab.mytweetActivity.R;
 import android.view.ActionMode;
-import android.widget.AbsListView.MultiChoiceModeListener;
 
 
 public class TimelineListFragment extends ListFragment
@@ -68,7 +67,7 @@ public class TimelineListFragment extends ListFragment
     public void onListItemClick(ListView l, View v, int position, long id)
     {
         Message mes = ((MessageAdapter) getListAdapter()).getItem(position);
-        Intent i = new Intent(getActivity(), mytweetActivity.class);
+        Intent i = new Intent(getActivity(), MytweetPagerActivity.class);
         i.putExtra(MessageFragment.EXTRA_MESSAGE_ID, mes.id);
         startActivityForResult(i, 0);
     }
@@ -101,7 +100,7 @@ public class TimelineListFragment extends ListFragment
             case R.id.new_tweet:
                 Message message = new Message();
         timeline.addMessage(message);
-                Intent i = new Intent(getActivity(), mytweetActivity.class);
+                Intent i = new Intent(getActivity(), MytweetPagerActivity.class);
                 i.putExtra(MessageFragment.EXTRA_MESSAGE_ID, message.id);
                 startActivityForResult(i, 0);
                 return true;
@@ -119,7 +118,7 @@ public class TimelineListFragment extends ListFragment
     public void onItemClick(AdapterView<?> parent, View view, int position, long id)
     {
         Message message = adapter.getItem(position);
-        IntentHelper.startActivityWithData(getActivity(), mytweetActivity.class, "MESSAGE_ID", message.id);
+        IntentHelper.startActivityWithData(getActivity(), MytweetPagerActivity.class, "MESSAGE_ID", message.id);
     }
 
     /* ************ MultiChoiceModeListener methods (begin) *********** */
