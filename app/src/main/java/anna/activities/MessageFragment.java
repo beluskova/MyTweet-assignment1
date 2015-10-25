@@ -30,6 +30,7 @@ import anna.models.Timeline;
 import annab.mytweetActivity.R;
 
 
+import static android.provider.ContactsContract.Contacts.CONTENT_URI;
 import static anna.android.helpers.IntentHelper.navigateUp;
 
 public class MessageFragment extends Fragment implements View.OnClickListener, TextWatcher {
@@ -87,6 +88,7 @@ public class MessageFragment extends Fragment implements View.OnClickListener, T
         buttonTweet.setOnClickListener(this);
         editStatus.addTextChangedListener(this);
         selectContact.setOnClickListener(this);
+        sendEmail.setOnClickListener(this);
 
     }
 
@@ -150,12 +152,16 @@ public class MessageFragment extends Fragment implements View.OnClickListener, T
                 break;
 
             case R.id.selectContact:
-                Intent i = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
+                Intent i = new Intent(Intent.ACTION_PICK, CONTENT_URI);
                 startActivityForResult(i, REQUEST_CONTACT);
                 if (message.selectContact != null)
                 {
                     selectContact.setText("Contact: "+ message.selectContact);
                 }
+                break;
+
+            case R.id.sendEmail:
+                IntentHelper.sendEmail(getActivity(), "", getString(R.string.tweet_report_subject), message.getTweetEmailed(getActivity()));
                 break;
         }
     }

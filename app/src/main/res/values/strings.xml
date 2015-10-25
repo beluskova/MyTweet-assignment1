@@ -12,4 +12,5 @@
     <string name="action_email">Email Tweet via</string>
     <string name="timeline_activity">Timeline</string>
     <string name="delete_message">Delete Message</string>
-</resources>
+    <string name="tweet_report_subject">My Latest Tweet! </string>
+    </resources>

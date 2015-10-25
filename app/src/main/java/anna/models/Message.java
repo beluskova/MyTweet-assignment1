@@ -1,11 +1,15 @@
 package anna.models;
 
+import android.content.Context;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.UUID;
+
+import annab.mytweetActivity.R;
 
 public class Message
 {
@@ -54,5 +58,13 @@ public class Message
     public String getDateString()
     {
         return DateFormat.getDateTimeInstance().format(date);
+    }
+
+    public String getTweetEmailed(Context context)
+    {
+        String dateFormat = "EEE, MMM dd";
+        String dateString = android.text.format.DateFormat.format(dateFormat, date).toString();
+        String report =  "Tweet " + editStatus + " Date: " + dateString + " ";
+        return report;
     }
 }
