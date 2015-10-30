@@ -94,8 +94,8 @@ public class TimelineListFragment extends ListFragment
         // as you specify a parent activity in AndroidManifest.xml.
         switch (item.getItemId())
         {
-            case R.id.action_settings : Toast toast = Toast.makeText(getActivity(), "Settings Selected", Toast.LENGTH_SHORT);
-                toast.show();
+            case R.id.action_settings :
+                IntentHelper.startActivity(getActivity(), SettingsActivity.class);
                 break;
             case R.id.new_tweet:
                 Message message = new Message();

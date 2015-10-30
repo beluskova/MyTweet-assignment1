@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <EditTextPreference
+        android:title="User Name"
+        android:key="username"
+        android:summary="What\'s your user name?"/>
+
+    <EditTextPreference
+        android:title="Password"
+        android:key="password"
+        android:inputType="textPassword"
+        android:summary="How do you log in?"/>
+
+
+
+    <ListPreference
+        android:title="Refresh Interval"
+        android:summary="How frequently should data refresh?"
+        android:key="refreshType"
+        android:defaultValue="1"
+        android:entries="@array/listArray"
+        android:entryValues="@array/listValues" />
+</PreferenceScreen>

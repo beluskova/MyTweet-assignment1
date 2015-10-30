@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">mytweet</string>
+    <string name="app_name">MyTweet</string>
 
     <string name="action_settings">Settings</string>
     <string name="action_clear">Clear</string>
