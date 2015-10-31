@@ -29,6 +29,7 @@ public class MytweetPagerActivity extends FragmentActivity  implements ViewPager
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTitle(R.string.mytweet_activity);
         viewPager = new ViewPager(this);
         viewPager.setId(R.id.viewPager);
         setContentView(viewPager);

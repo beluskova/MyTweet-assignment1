@@ -15,7 +15,9 @@
         android:id="@+id/list_item_tweet_message"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textSize="18dp"
         android:textStyle="bold"
+        android:textColor="@color/black"
         android:paddingLeft="4dp"
         android:paddingRight="4dp"
         />

@@ -33,6 +33,7 @@ public class MytweetActivity extends FragmentActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_container);
+        setTitle(R.string.mytweet_activity);
 
         FragmentManager manager = getSupportFragmentManager();
         Fragment fragment = manager.findFragmentById(R.id.fragmentContainer);

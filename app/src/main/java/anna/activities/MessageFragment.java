@@ -102,13 +102,13 @@ public class MessageFragment extends Fragment implements View.OnClickListener, T
     {
         int count = 140 - editStatus.length();
         textCount.setText(Integer.toString(count));
-        textCount.setTextColor(Color.GREEN);
+        textCount.setTextColor(Color.BLACK);
         if (count < 10 & count > 0)
             textCount.setTextColor(Color.YELLOW);
         else if (count == 0)
             textCount.setTextColor(Color.RED);
         else
-            textCount.setTextColor(Color.GREEN);
+            textCount.setTextColor(Color.BLACK);
 
         String thisMessage = s.toString();
         Log.i(this.getClass().getSimpleName(), "tweeted: " + thisMessage);
