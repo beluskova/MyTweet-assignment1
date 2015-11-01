@@ -11,7 +11,7 @@ import android.widget.Toast;
 import annab.mytweetActivity.R;
 
 
-public class TimelineActivity extends Activity {
+public class timelineActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
