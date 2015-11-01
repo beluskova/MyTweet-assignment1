@@ -27,7 +27,7 @@ import annab.mytweetActivity.R;
 
 import static anna.android.helpers.IntentHelper.navigateUp;
 
-public class MytweetActivity extends FragmentActivity
+public class mytweetActivity extends FragmentActivity
 {
     public void onCreate(Bundle savedInstanceState)
     {

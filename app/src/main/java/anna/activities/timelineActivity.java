@@ -39,7 +39,7 @@ public class TimelineActivity extends Activity {
                 toast.show();
                 break;
             case R.id.new_tweet:
-                startActivity(new Intent(this, MytweetActivity.class));
+                startActivity(new Intent(this, mytweetActivity.class));
                 break;
             case R.id.action_clear:
                 Toast toast1 = Toast.makeText(this, "Clear Selected", Toast.LENGTH_SHORT);
